@@ -2,12 +2,12 @@ import { configDotenv } from "dotenv";
 configDotenv({ quiet: true });
 import express from "express";
 
-import ConnectDB from "./configs/db.js";
+import dbInstance from "./models/index.js";
 const app = express();
 const port = process.env.PORT;
 
 try {
-    await ConnectDB.getInstance()?.connect();
+    await dbInstance.connect();
     app.listen(port, () => {
         console.log(`Server is running at port ${port}...`);
     });
