@@ -15,6 +15,7 @@ class Database {
             {
                 dialect: process.env.DB_CLIENT,
                 host: process.env.DB_HOST,
+                logging: false
             }
         )
 
@@ -27,6 +28,16 @@ class Database {
             console.log('Database connected successfuly...');
         } catch (error) {
             console.log('Failed to connect database.', error.message);
+            throw error;
+        }
+    }
+
+    async syncDatabase() {
+        try {
+            await this.sequelize.sync({ alter: true });
+            console.log('Database sync successfuly...');
+        } catch (error) {
+            console.log('Failed to sync database.', error.message);
             throw error;
         }
     }
